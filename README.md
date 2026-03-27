@@ -1,6 +1,4 @@
-<div align="center">
-
-# 🎨 MJ Prompt Factory
+﻿# 🎨 MJ Prompt Factory
 
 ### *한국어 콘셉트 → Midjourney V7 최적화 영문 프롬프트, 자동으로*
 
@@ -16,8 +14,6 @@
 > 템플릿 × 변수 조합 엔진 + Claude AI 번역으로 100개 프롬프트를 **5분**에 생성합니다.
 
 [📖 튜토리얼](TUTORIAL.md) · [🐛 이슈](../../issues)
-
-</div>
 
 ---
 
