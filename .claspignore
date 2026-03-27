@@ -1,0 +1,9 @@
+**/**
+!Code.gs
+!SheetSetup.gs
+!PromptEngine.gs
+!QueueManager.gs
+!ClaudeApi.gs
+!GeminiApi.gs
+!Sidebar.html
+!appsscript.json
