@@ -49,7 +49,7 @@ Exception: image-prompt URLs go at the **beginning** of the prompt, not in the p
 | `--no` | Tells Midjourney what to leave out. | Include when the user or a `no` column provides a list. |
 | `--seed` | For testing and experimenting. Version chart notes V8.1/V8.2 seeds are "99% identical". | Include only if the user supplies a seed. |
 | `--tile` | Seamless repeating patterns. Official Edit Model docs: not currently compatible with `--tile`. | Include only if requested, and not together with `--edit`. |
-| `--profile` / `--p` | Personalization profiles and moodboards. V7 Global Personalization Profile is described as compatible with V8.2 on Midjourney documentation category text. | Include only if the user supplies a profile code. Do not invent codes. |
+| `--profile` / `--p` | Personalization and moodboards, V6 and later. `--p` applies defaults; `--p pID` a profile; `--p mID` a moodboard. The V7 Global Profile works on V8.1 and V8.2. There is currently no Global V8 Profile; V8 profiles are not compatible with V7. Stylize (`0`–`1000`, default `100`) controls how strongly Personalization is applied. Moodboards are not compatible with `--sw` or `--sv`. | Append only when the user asks for Personalization or supplies an ID. Never invent an ID. |
 
 ## Reference parameters
 
@@ -117,6 +117,20 @@ Source: [Image Prompts](https://docs.midjourney.com/hc/en-us/articles/3204025012
 
 The Image Prompts article links to the V8.2 Version page but does **not** include a V8.2 row in that table. Do not invent a separate V8.2 range. If a user supplies `--iw` on a V8.2 prompt, pass through a value in the documented 8.1 range and note the table label.
 
+
+### Personalization (`--p` / `--profile`) and moodboards
+
+Sources: [Personalization](https://docs.midjourney.com/hc/en-us/articles/32433330574221-Personalization), [Moodboards](https://docs.midjourney.com/hc/en-us/articles/39193335040013-Moodboards).
+
+- Compatible with Midjourney versions 6 and later.
+- Official Personalization docs: the V7 Global Personalization Profile is compatible with V8.2. Additional V8.X profiles can be created, but there is currently no Global V8 Profile. V8 profiles are currently not compatible with V7.
+- `--p` or `--profile` with no ID applies the user's default selected profiles or moodboards, and only after the Global Profile is unlocked.
+- `--p pID` selects a specific profile. `--p mID` selects a specific moodboard. Midjourney converts the ID to a code on submit.
+- With Personalization on, `--stylize` / `--s` (`0`–`1000`, default `100`) controls how much of the profile is applied.
+- Moodboards cannot be used with `--sv` or `--sw`.
+- The Edit Model can be used with Moodboards and Personalization.
+- Do not invent profile or moodboard IDs. Use only IDs the user provides.
+
 ## Official sources
 
 - [Version](https://docs.midjourney.com/hc/en-us/articles/32199405667853-Version)
@@ -134,3 +148,5 @@ The Image Prompts article links to the V8.2 Version page but does **not** includ
 - [Legacy Features (Character Reference)](https://docs.midjourney.com/hc/en-us/articles/33329788681101-Legacy-Features)
 - [Upscalers (V8.2 SD/HD sizes)](https://docs.midjourney.com/hc/en-us/articles/32804058614669-Upscalers)
 - [Image Size & Resolution](https://docs.midjourney.com/hc/en-us/articles/33329374594957-Image-Size-Resolution)
+- [Personalization](https://docs.midjourney.com/hc/en-us/articles/32433330574221-Personalization)
+- [Moodboards](https://docs.midjourney.com/hc/en-us/articles/39193335040013-Moodboards)

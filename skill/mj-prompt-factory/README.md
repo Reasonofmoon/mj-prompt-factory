@@ -10,7 +10,7 @@ This skill is a repackaging of the prompt-design rules from [Reasonofmoon/mj-pro
 
 - Converts a single Korean (or mixed) concept into several distinct English Midjourney V8.2 prompts.
 - Accepts batch input from CSV, TSV, or a pasted spreadsheet, including reference-image columns.
-- Maps legacy character references to the current official flags: V6 `--cref` / `--cw` → V7 `--oref` / `--ow` → V8.1/V8.2 `--edit` (up to four images). Style references (`--sref`, `--sw`) and image prompts (`--iw`) are still current.
+- Maps legacy character references to the current official flags: V6 `--cref` / `--cw` → V7 `--oref` / `--ow` → V8.1/V8.2 `--edit` (up to four images). Style references (`--sref`, `--sw`), image prompts (`--iw`), Personalization (`--p` / `--p pID` / `--p mID`), HD (`--hd`), and Raw (`--raw`) follow official V8.2 docs.
 - Leaves `--stylize` and `--quality` off unless the user asks for them.
 
 ## Install in your agent
@@ -43,6 +43,7 @@ This repository does not register the listing for you. Zip, upload, and set the 
 mj-prompt-factory/
 ├── SKILL.md
 ├── README.md
+├── LICENSE
 └── references/
     ├── parameters.md    # official version and parameter rules
     └── templates.md     # worked examples and a batch header row
@@ -68,4 +69,4 @@ Parameter rules in this skill come from Midjourney docs, including:
 
 ## License
 
-The source repository README marks this project as MIT © Reasonofmoon. A separate `LICENSE` file was not present in the repository at the time this package was added.
+This package and the repository are licensed under the MIT License, Copyright (c) 2026 Reasonofmoon. See `LICENSE`.

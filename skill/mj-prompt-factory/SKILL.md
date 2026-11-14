@@ -1,11 +1,11 @@
 ---
 name: mj-prompt-factory
 description: Converts Korean concepts into optimized English Midjourney V8.2 prompts, including batch CSV or sheet paste and official reference-image parameters. Use when the user asks for Midjourney prompts, MJ V8 or V7 prompts, Korean-to-English prompt conversion, --edit, --sref, --oref, or --cref mapping, or batch prompt generation.
-version: 1.0.0
-summary: Batch-generate English Midjourney V8.2 prompts from Korean concepts, with official parameter and reference-image rules.
+version: 1.1.0
+summary: Batch-generate English Midjourney V8.2 prompts from Korean concepts, with official Edit Model, style-reference, Personalization, HD, Raw, and batch-input rules.
 tags: midjourney, prompting, korean, image-prompts
 keywords: midjourney v8.2, korean to english, style reference, edit model, character reference
-use_cases: Convert a Korean concept into Midjourney V8.2 prompts; batch-generate prompts from CSV or spreadsheet paste; map V6 --cref and V7 --oref inputs to V8.2 --edit
+use_cases: Convert a Korean concept into Midjourney V8.2 prompts; batch-generate prompts from CSV or spreadsheet paste; map V6 --cref and V7 --oref inputs to V8.2 --edit; apply user-supplied Personalization or moodboard IDs with --p
 docs_url: https://github.com/Reasonofmoon/mj-prompt-factory
 ---
 
@@ -57,6 +57,19 @@ Replacement path, from official docs:
 
 If the user is on the default (V8.2) and pastes `cref_url`, `cw`, `oref_url`, or `ow`, remap to `--edit URL` and say so in the notes. Do not keep the legacy flags. If they also need a weight, explain that official Edit Model docs do not list a weight parameter; they can describe emphasis in the text prompt or switch to `--v 7` to use `--ow`.
 
+## Personalization and moodboards
+
+Official sources: [Personalization](https://docs.midjourney.com/hc/en-us/articles/32433330574221-Personalization), [Moodboards](https://docs.midjourney.com/hc/en-us/articles/39193335040013-Moodboards).
+
+- Compatible with Midjourney versions 6 and later. The official Personalization article states that the **V7 Global Personalization Profile is compatible with V8.2**.
+- You can create additional profiles for V8.X. Official docs say there is currently **no Global V8 Profile**. V8 profiles are currently **not compatible with V7**.
+- `--p` or `--profile` alone applies the user's default selected profiles or moodboards. This works only after the Global Profile is unlocked; otherwise Midjourney returns an error.
+- `--p pID` applies a specific Personalization profile. `--p mID` applies a specific moodboard. Midjourney converts these IDs to a code when the prompt is submitted.
+- When Personalization is on, `--stylize` / `--s` (`0`–`1000`, default `100`) controls how strongly the profile is applied: lower limits it, higher increases it.
+- Moodboards cannot be used with `--sv` or `--sw`.
+- Personalization and moodboards may be combined with the Edit Model.
+- Use a profile or moodboard ID **only when the user supplies it**. Never invent an ID, and never reuse an ID from this skill's examples. Examples below use placeholders such as `pID` and `mID`.
+
 ## How the user provides references
 
 Accept any of these:
@@ -80,6 +93,16 @@ https://example.com/mood.png misty Seoul alley at night, retro neon, wet pavemen
 
 # Optional V7 path (only when the user asks for V7)
 illustration of a young woman with short gray hair --oref https://example.com/character.png --ow 100 --ar 2:3 --v 7
+
+# Personalization or moodboard (only with a user-supplied ID, or bare --p for their default)
+editorial portrait of a ceramic vase, soft window light --p pID --ar 4:3 --v 8.2
+misty mountain valley, cinematic wide shot --p mID --ar 16:9 --v 8.2
+
+# HD and Raw (HD max aspect ratio is 4:1)
+white sneakers on marble, editorial product photo --raw --hd --ar 4:3 --v 8.2
+
+# Up to four Edit Model reference images
+a boy meeting a monster in the wilderness --edit https://example.com/boy.png https://example.com/monster.png https://example.com/forest.png https://example.com/sword.png --ar 16:9 --v 8.2
 ```
 
 Image URLs must already be publicly reachable and should end in `.png`, `.gif`, `.webp`, `.jpg`, or `.jpeg`. The user must have the rights to use the images. This skill never uploads files to Midjourney.
@@ -109,6 +132,7 @@ Treat the first row as headers if it looks like a header. Accept Korean or Engli
 | `ow` | `oref_weight` | V7 `--ow` only. |
 | `cref_url` | `cref` | V6 Character Reference URL. On V8.2, remap to `edit_url`. On V7, remap to `oref_url`. |
 | `cw` | `cref_weight` | V6 `--cw` only. Do not translate it into an invented Edit Model weight. |
+| `p` | `profile`, `profile_id`, `moodboard`, `moodboard_id` | Personalization or moodboard. Bare `true`/`yes` → `--p`. A user-supplied ID → `--p pID` or `--p mID` as given. Never invent an ID. Do not combine a moodboard with `--sw` or `--sv`. |
 
 Template expansion, matching the original Sheets tool: if `concept` contains `{placeholders}` and the batch (or a Variables table) supplies values, expand with one of these modes — `cartesian` (all combinations), `oneToOne` (same index, wrapping shorter lists), or `random` (N unique samples). Then attach that row's fixed parameters and references.
 

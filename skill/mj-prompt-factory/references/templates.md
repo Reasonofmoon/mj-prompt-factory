@@ -94,7 +94,7 @@ Notes: `--cw 50` is below the official default and maximum of `100`, which offic
 ## Batch header row (copy-paste)
 
 ```csv
-concept,ar,version,edit_url,sref_url,sw,sv,image_url,iw,raw,hd,stylize,chaos,no,count,oref_url,ow,cref_url,cw
+concept,ar,version,edit_url,sref_url,sw,sv,image_url,iw,raw,hd,stylize,chaos,no,count,p,oref_url,ow,cref_url,cw
 ```
 
 ## Template expansion (optional)
@@ -114,3 +114,52 @@ Variables:
 - `{lighting}`: soft studio lighting
 
 Cartesian mode yields six base prompts, then attach that row's `--ar`, `--v`, and any references. One-to-one mode pairs items by index (wrapping shorter lists). Random mode samples N unique combinations.
+
+## Example 6 — Personalization (user-supplied ID only)
+
+User:
+
+> 내 퍼스널라이제이션 프로필 써줘. ID는 pID야. 흰 스니커즈 제품 사진, 세로.
+
+Output:
+
+```text
+1. white sneakers on a marble surface, soft studio lighting, editorial product photography, clean background --p pID --ar 3:4 --v 8.2
+2. white sneakers on dark wood, natural window light, close three-quarter product view, shallow depth of field --p pID --ar 3:4 --v 8.2
+3. white sneakers on wet stone, soft side light, editorial still life, generous negative space --p pID --ar 3:4 --v 8.2
+```
+
+Notes: `--p pID` is a placeholder for the ID the user supplied. This skill never invents a profile or moodboard ID. Official docs: the V7 Global Profile works on V8.2; `--p` without an ID would apply the user's default, but only after their Global Profile is unlocked. If a moodboard ID (`mID`) is used, do not also add `--sw` or `--sv`.
+
+## Example 7 — HD, Raw, and chaos
+
+User:
+
+> 안개 낀 산골짜기를 와이드로, Raw랑 HD로, 결과 네 장이 좀 더 다양하게 chaos 20.
+
+Output:
+
+```text
+1. misty mountain valley, cinematic wide shot, volumetric light, quiet atmosphere --raw --hd --chaos 20 --ar 16:9 --v 8.2
+2. fog moving through a pine valley, pale dawn, distant ridge lines, still air --raw --hd --chaos 20 --ar 16:9 --v 8.2
+3. high overlook of a mist-filled mountain basin, cool color grade, thin sunlight --raw --hd --chaos 20 --ar 16:9 --v 8.2
+```
+
+Notes: `--hd` is documented for V8.1 and listed under V8.1 & V8.2; official max aspect ratio for HD is `4:1`, and `16:9` is within that limit. `--raw` reduces default styling. `--chaos 20` is inside the official `0`–`100` range (default `0`).
+
+## Example 8 — four Edit Model reference images
+
+User:
+
+> 소년이 야생에서 괴물을 만나는 장면. 레퍼런스 네 장: 소년, 괴물, 숲, 검.
+
+Output:
+
+```text
+1. a boy meeting a monster in the wilderness, tense standoff, mossy ground, overcast light --edit https://example.com/boy.png https://example.com/monster.png https://example.com/forest.png https://example.com/sword.png --ar 16:9 --v 8.2
+2. a boy meeting a monster in the wilderness, closer three-quarter view, wet ferns, dramatic side light --edit https://example.com/boy.png https://example.com/monster.png https://example.com/forest.png https://example.com/sword.png --ar 16:9 --v 8.2
+3. a boy meeting a monster in the wilderness, wide establishing shot, ancient trees, pale mist --edit https://example.com/boy.png https://example.com/monster.png https://example.com/forest.png https://example.com/sword.png --ar 16:9 --v 8.2
+```
+
+Notes: Official Edit Model docs allow up to four reference images and do not define a weight flag. URLs here are placeholders. If character attributes mix across subjects, official docs suggest combining characters into a single reference image.
+
